@@ -32,6 +32,8 @@ public class Netgame extends Application {
 
     public final int screenWidth = 600;
     public final int screenHeight = 600;
+    int x=0;
+    int y=0;
 
     public static Packet packet = new Packet(0);
 
@@ -84,6 +86,10 @@ public class Netgame extends Application {
             if (code == KeyCode.A) {
                 System.out.println("The A key was specifically pressed!");
             }
+            if(code==KeyCode.W){ y-=5;}
+            if(code==KeyCode.S){ y+=5;}
+            if(code==KeyCode.A){ x-=5;}
+            if(code==KeyCode.D){ x+=5;}
 
         });
         canvas.setOnKeyReleased(e -> {
@@ -118,7 +124,7 @@ public class Netgame extends Application {
         gc.fillRect(0,0,screenWidth,screenHeight); // starting from 0,0, which is the top left corner of the screen
 
         gc.setFill(Color.BLUE);
-        gc.fillRect(packet.num,packet.num,25,25);
+        gc.fillRect(x,y,25,25);
     }
 
     public static void main(String[] args) {
