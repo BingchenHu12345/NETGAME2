@@ -5,9 +5,12 @@ import java.io.*;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 import com.example.netgame2.packets.Packet;
+import com.example.netgame2.packets.Player;
+import com.example.netgame2.packets.PlayerPacket;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -34,8 +37,13 @@ public class Netgame extends Application {
     public final int screenHeight = 600;
     int x=0;
     int y=0;
+    int x1=7;
+    int y1=7;
+    int x2=100;
+    int y2=100;
+    boolean Punch=false;
 
-    public static Packet packet = new Packet(0);
+    public static Packet packet = new Packet();
 
     @Override
     public void start(Stage stage)  {
@@ -60,9 +68,11 @@ public class Netgame extends Application {
 
                 OutputStream os = socket.getOutputStream();
                 ObjectOutputStream oos = new ObjectOutputStream(os);
+
+
                 while(true) {
                     Packet recPacket = (Packet) ois.readObject();
-                    Packet sendPacket = new Packet(0);
+                    PlayerPacket sendPacket = new PlayerPacket(x,y);
                     oos.writeObject(sendPacket);
                     System.out.println(recPacket);
                     Netgame.packet = recPacket;
@@ -87,9 +97,17 @@ public class Netgame extends Application {
                 System.out.println("The A key was specifically pressed!");
             }
             if(code==KeyCode.W){ y-=5;}
+            if(code==KeyCode.W){ y1-=5;}
             if(code==KeyCode.S){ y+=5;}
+            if(code==KeyCode.S){ y1+=5;}
             if(code==KeyCode.A){ x-=5;}
+            if(code==KeyCode.A){ x1-=5;}
             if(code==KeyCode.D){ x+=5;}
+            if(code==KeyCode.D){ x1+=5;}
+            if(code==KeyCode.SPACE){
+                Punch=true;}
+
+
 
         });
         canvas.setOnKeyReleased(e -> {
@@ -125,6 +143,11 @@ public class Netgame extends Application {
 
         gc.setFill(Color.BLUE);
         gc.fillRect(x,y,25,25);
+        gc.setFill(Color.BLACK);
+        gc.fillRect(x1,y1,10,10);
+
+        gc.setFill(Color.RED);
+        gc.fillRect(x2,y2,25,25);
     }
 
     public static void main(String[] args) {
