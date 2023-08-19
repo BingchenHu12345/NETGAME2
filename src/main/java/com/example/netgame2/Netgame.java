@@ -69,12 +69,14 @@ public class Netgame extends Application {
                 OutputStream os = socket.getOutputStream();
                 ObjectOutputStream oos = new ObjectOutputStream(os);
 
-
                 while(true) {
-                    Packet recPacket = (Packet) ois.readObject();
+                    Packet recPacket = (Packet) ois.readObject(); //TODO: arraylist is not serialized properly
                     PlayerPacket sendPacket = new PlayerPacket(x,y);
-                    oos.writeObject(sendPacket);
                     System.out.println(recPacket);
+                    oos.writeObject(sendPacket);
+//                    System.out.println(Netgame.packet);
+
+
                     Netgame.packet = recPacket;
                 }
             } catch (IOException e) {
@@ -146,8 +148,15 @@ public class Netgame extends Application {
         gc.setFill(Color.BLACK);
         gc.fillRect(x1,y1,10,10);
 
-        gc.setFill(Color.RED);
-        gc.fillRect(x2,y2,25,25);
+        if (Netgame.packet.ID==0){
+            gc.setFill(Color.RED);
+            gc.fillRect(Netgame.packet.x1, Netgame.packet.y1, 25,25);
+        } else {
+            gc.setFill(Color.BLUE);
+            gc.fillRect(Netgame.packet.x, Netgame.packet.y, 25,25);
+        }
+
+
     }
 
     public static void main(String[] args) {

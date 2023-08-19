@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1dae2935-444d-4526-a79b-f58cd704c2e3" name="Changes" comment="Worked on moving square with client">
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/example/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Server/src/main/java/com/example/netgame2/packets/Packet.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server/src/main/java/com/example/netgame2/packets/Packet.java" afterDir="false" />
@@ -104,12 +103,12 @@
     </key>
   </component>
   <component name="RunManager" selected="Application.Netgame">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.example.Main" />
-      <module name="NETGAME2.Server.main" />
+    <configuration name="Netgame" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.netgame2.Netgame" />
+      <module name="NETGAME2.main" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.example.*" />
+          <option name="PATTERN" value="com.example.netgame2.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -117,12 +116,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Netgame" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.example.netgame2.Netgame" />
-      <module name="NETGAME2.main" />
+    <configuration name="Server" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="com.example.Main" />
+      <module name="NETGAME2.Server.main" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.example.netgame2.*" />
+          <option name="PATTERN" value="com.example.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -193,10 +192,17 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Application.Server" />
+      <item itemvalue="Application.Netgame" />
+      <item itemvalue="Gradle.NETGAME2 [assemble]" />
+      <item itemvalue="Gradle.NETGAME2 [build]" />
+      <item itemvalue="Gradle.NETGAME2 [run]" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Netgame" />
-        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.Server" />
         <item itemvalue="Gradle.NETGAME2 [run]" />
         <item itemvalue="Gradle.NETGAME2 [assemble]" />
         <item itemvalue="Gradle.NETGAME2 [build]" />
@@ -233,11 +239,39 @@
       <option name="project" value="LOCAL" />
       <updated>1686606461349</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Worked on moving square with client">
+      <created>1691532448986</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1691532448986</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Worked on moving square with client" />
     <option name="LAST_COMMIT_MESSAGE" value="Worked on moving square with client" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Server/src/main/java/com/example/Main.java</url>
+          <line>91</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/example/netgame2/Netgame.java</url>
+          <line>72</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/NETGAME2$Netgame.ic" NAME="Netgame Coverage Results" MODIFIED="1691862948824" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.example.netgame2.*</FILTER>
+    </SUITE>
   </component>
 </project>

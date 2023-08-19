@@ -34,7 +34,8 @@ public class Main {
 
                     //connection threads start here
                     Socket ThreadSocket= socket;
-                    Main.PLayerList.add(new Player(0, 0));
+//                    Main.PLayerList.add(new Player(0, 0));
+                    int ID = count;
                     count++;
 
                     InputStream is = null;
@@ -42,37 +43,49 @@ public class Main {
 
                     OutputStream os = null;
                     ObjectOutputStream oos = null;
+
+                    try {
+                        os = ThreadSocket.getOutputStream();
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    try {
+                        oos = new ObjectOutputStream(os);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    try {
+                        is = ThreadSocket.getInputStream();
+                        ois = new ObjectInputStream(is);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+
 //            Scanner sc = new Scanner(System.in);
 //            System.out.println("whats ur name");
 //            String name = sc.nextLine();
-                    int ID = count;
-                    // ^^^intializing the players cooridinates
-                    while (true) {
 
+                    // ^^^intializing the players cooridinates
+                    System.out.println("YOU CONNECTED");
+                    while (true) {
 
                         //accepting client and storing
 
-                        System.out.println("YOU CONNECTED");
+
                         //get ability to send data thru socket
                         //taking output stream and making it a printable object
-
-                        if (os == null && oos == null) {
-                            try {
-                                os = socket.getOutputStream();
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
-                            }
-                            try {
-                                oos = new ObjectOutputStream(os);
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
-                            }
+                        Packet packet;
+                        if(PLayerList.size()==1){
+                            packet=new Packet(PLayerList.get(0).x, PLayerList.get(0).y,ID);
+                        } else if (PLayerList.size()==2) {
+                            packet=new Packet(PLayerList.get(0).x, PLayerList.get(0).y,PLayerList.get(1).x, PLayerList.get(1).y,ID);
+                        } else{
+                            packet=new Packet();
                         }
 
-//                counter += 1;
-//                System.out.println("Type somthing");
-//                String ask = sc.nextLine();
-                        Packet packet = new Packet(Main.PLayerList);
+                        System.out.println(packet);
+                        System.out.println(PLayerList.size());
 
 
                         try {
@@ -80,34 +93,20 @@ public class Main {
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
-//                if (Objects.equals(ask, "bye") || Objects.equals(ask, "Bye") || Objects.equals(ask, "Goodbye") || Objects.equals(ask, "goodbye")) {
-//                    socket.close();
-//                    System.exit(0);
 
-
-                        if (is == null && ois == null) {
-                            try {
-                                is = socket.getInputStream();
-                                ois = new ObjectInputStream(is);
-                            } catch (IOException e) {
-                                throw new RuntimeException(e);
-                            }
-
-                        }
                         PlayerPacket recPacket = null;
                         try {
                             recPacket = (PlayerPacket) ois.readObject();
-                            PLayerList.set(ID,new Player(recPacket.x,recPacket.y));
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        } catch (ClassNotFoundException e) {
+                            if(PLayerList.size()<=ID)
+                            {
+                                PLayerList.add(new Player(recPacket.x,recPacket.y));
+                            }
+                            else{PLayerList.set(ID,new Player(recPacket.x,recPacket.y));}
+
+                        } catch (IOException | ClassNotFoundException e) {
                             throw new RuntimeException(e);
                         }
-
-
-
-                        System.out.println(recPacket);
-
+                        System.out.println(recPacket.x + " " + recPacket.y);
                         try {
                             Thread.sleep(100);
                         } catch (InterruptedException e) {
