@@ -9,10 +9,11 @@ public class Player implements Serializable
 
     public PlayerState ps;
 
-    public Player(int x, int y)
+    public Player(int x, int y,PlayerState ps)
     {
         this.x=x;
         this.y=y;
+        this.ps=ps;
     }
 
     @Override

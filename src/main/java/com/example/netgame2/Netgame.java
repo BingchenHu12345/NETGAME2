@@ -11,6 +11,7 @@ import java.util.Scanner;
 import com.example.netgame2.packets.Packet;
 import com.example.netgame2.packets.Player;
 import com.example.netgame2.packets.PlayerPacket;
+import com.example.netgame2.packets.PlayerState;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -70,8 +71,8 @@ public class Netgame extends Application {
                 ObjectOutputStream oos = new ObjectOutputStream(os);
 
                 while(true) {
-                    Packet recPacket = (Packet) ois.readObject(); //TODO: arraylist is not serialized properly
-                    PlayerPacket sendPacket = new PlayerPacket(x,y);
+                    Packet recPacket = (Packet) ois.readObject();
+                    PlayerPacket sendPacket = new PlayerPacket(x,y, new PlayerState(Punch));
                     System.out.println(recPacket);
                     oos.writeObject(sendPacket);
 //                    System.out.println(Netgame.packet);
@@ -115,6 +116,8 @@ public class Netgame extends Application {
         canvas.setOnKeyReleased(e -> {
             KeyCode code = e.getCode();
             System.out.println("Key was released: " + code);
+            if(code==KeyCode.SPACE){
+                Punch=false;}
         });
         canvas.setOnMouseDragged(e -> {
             double x = e.getX();
@@ -145,15 +148,31 @@ public class Netgame extends Application {
 
         gc.setFill(Color.BLUE);
         gc.fillRect(x,y,25,25);
-        gc.setFill(Color.BLACK);
-        gc.fillRect(x1,y1,10,10);
 
+        if(Punch){
+            gc.setFill(Color.BLACK);
+            gc.fillRect(x1,y1,10,10);
+
+        }
         if (Netgame.packet.ID==0){
             gc.setFill(Color.RED);
             gc.fillRect(Netgame.packet.x1, Netgame.packet.y1, 25,25);
+            if(Netgame.packet.player1State.isAt()){
+                System.out.println("i");
+                gc.setFill(Color.BLACK);
+                gc.fillRect(Netgame.packet.x1+7,Netgame.packet.y1+7,10,10);
+
+            }
+
         } else {
-            gc.setFill(Color.BLUE);
+            gc.setFill(Color.GREEN);
             gc.fillRect(Netgame.packet.x, Netgame.packet.y, 25,25);
+            if(Netgame.packet.player2State.isAt()){
+                System.out.println("i");
+                gc.setFill(Color.BLACK);
+                gc.fillRect(Netgame.packet.x+7,Netgame.packet.y+7,10,10);
+
+            }
         }
 
 

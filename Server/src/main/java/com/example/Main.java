@@ -3,21 +3,17 @@ package com.example;
 import com.example.netgame2.packets.Packet;
 import com.example.netgame2.packets.Player;
 import com.example.netgame2.packets.PlayerPacket;
-import com.example.netgame2.packets.PlayerState;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Objects;
-import java.util.Scanner;
 
 public class Main {
 
     public static int count=0;
 
-    public static ArrayList<Player> PLayerList=new ArrayList<>();
+    public static ArrayList<Player> playerlist =new ArrayList<>();
 
     public static void main(String[] args) {
 
@@ -75,19 +71,19 @@ public class Main {
 
 
                         //get ability to send data thru socket
-                        // TODO add playerstate to player.java and send it using server packets
+
                         //taking output stream and making it a printable object
                         Packet packet;
-                        if(PLayerList.size()==1){
-                            packet=new Packet(PLayerList.get(0).x, PLayerList.get(0).y,ID,PLayerList.get(0).ps);
-                        } else if (PLayerList.size()==2) {
-                            packet=new Packet(PLayerList.get(0).x, PLayerList.get(0).y,PLayerList.get(1).x, PLayerList.get(1).y,ID,PLayerList.get(1).ps);
+                        if(playerlist.size()==1){
+                            packet=new Packet(playerlist.get(0).x, playerlist.get(0).y,ID, playerlist.get(0).ps);
+                        } else if (playerlist.size()==2) {
+                            packet=new Packet(playerlist.get(0).x, playerlist.get(0).y, playerlist.get(1).x, playerlist.get(1).y,ID, playerlist.get(1).ps);
                         } else{
                             packet=new Packet();
                         }
 
                         System.out.println(packet);
-                        System.out.println(PLayerList.size());
+                        System.out.println(playerlist.size());
 
 
                         try {
@@ -99,11 +95,12 @@ public class Main {
                         PlayerPacket recPacket = null;
                         try {
                             recPacket = (PlayerPacket) ois.readObject();
-                            if(PLayerList.size()<=ID)
+                            if(playerlist.size()<=ID)
                             {
-                                PLayerList.add(new Player(recPacket.x,recPacket.y));
+                                playerlist.add(new Player(recPacket.x,recPacket.y,recPacket.ps));
                             }
-                            else{PLayerList.set(ID,new Player(recPacket.x,recPacket.y));}
+                            else{
+                                playerlist.set(ID,new Player(recPacket.x,recPacket.y,recPacket.ps));}
 
                         } catch (IOException | ClassNotFoundException e) {
                             throw new RuntimeException(e);
