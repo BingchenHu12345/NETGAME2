@@ -7,6 +7,8 @@ public class Player implements Serializable
     public int x;
     public int y;
 
+    public PlayerState ps;
+
     public Player(int x, int y)
     {
         this.x=x;

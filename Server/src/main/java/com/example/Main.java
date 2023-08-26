@@ -3,6 +3,7 @@ package com.example;
 import com.example.netgame2.packets.Packet;
 import com.example.netgame2.packets.Player;
 import com.example.netgame2.packets.PlayerPacket;
+import com.example.netgame2.packets.PlayerState;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -74,12 +75,13 @@ public class Main {
 
 
                         //get ability to send data thru socket
+                        // TODO add playerstate to player.java and send it using server packets
                         //taking output stream and making it a printable object
                         Packet packet;
                         if(PLayerList.size()==1){
-                            packet=new Packet(PLayerList.get(0).x, PLayerList.get(0).y,ID);
+                            packet=new Packet(PLayerList.get(0).x, PLayerList.get(0).y,ID,PLayerList.get(0).ps);
                         } else if (PLayerList.size()==2) {
-                            packet=new Packet(PLayerList.get(0).x, PLayerList.get(0).y,PLayerList.get(1).x, PLayerList.get(1).y,ID);
+                            packet=new Packet(PLayerList.get(0).x, PLayerList.get(0).y,PLayerList.get(1).x, PLayerList.get(1).y,ID,PLayerList.get(1).ps);
                         } else{
                             packet=new Packet();
                         }
